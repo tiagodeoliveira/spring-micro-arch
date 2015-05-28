@@ -3,4 +3,4 @@ spring:
     name: processor
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://micro-arch-provider-35cc7558.tiagodeoliveira.svc.tutum.io:40084

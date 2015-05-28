@@ -40,8 +40,27 @@ subprojects {
         compile("org.springframework.boot:spring-boot-starter-amqp")
         compile("org.springframework.boot:spring-boot-starter-actuator")
         compile 'org.springframework.cloud:spring-cloud-netflix:1.0.2.RELEASE'
+        compile 'org.springframework.cloud:spring-cloud-config-client'
 
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
+
+//    task buildDocker << { task ->
+//        println "Docker image for project $task.project.name"
+//        def changeDir = "cd $task.project.rootDir"
+//        def dockerBuild = "/usr/local/bin/docker build -t tiagodeoliveira/micro-arch-$task.project.name ."
+//        def dockerPush = "/usr/local/bin/docker push tiagodeoliveira/micro-arch-$task.project.name"
+//
+//        def executor = { command ->
+//            def proc = command.execute()
+//            proc.in.eachLine {line -> println line}
+//            proc.err.eachLine {line -> println 'ERROR: ' + line}
+//            proc.waitFor()
+//        }
+//
+//        executor(changeDir)
+//        executor(dockerBuild)
+//        executor(dockerPush)
+//    }
 
 }

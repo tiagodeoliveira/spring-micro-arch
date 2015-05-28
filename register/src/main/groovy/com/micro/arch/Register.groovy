@@ -3,6 +3,7 @@ package com.micro.arch
 import groovy.util.logging.Log
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @Log
 @SpringBootApplication
+@RefreshScope
 @RestController
 class Register {
 

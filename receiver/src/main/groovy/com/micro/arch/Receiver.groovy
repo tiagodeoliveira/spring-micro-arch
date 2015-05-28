@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.EnableConfigurationProperties
+import org.springframework.cloud.context.config.annotation.RefreshScope
 import org.springframework.context.annotation.Bean
 import org.springframework.core.env.MissingRequiredPropertiesException
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController
 @Log
 @SpringBootApplication
 @ConfigurationProperties
+@RefreshScope
 @RestController
 class Receiver {
 
@@ -48,18 +49,12 @@ class Receiver {
     }
 
     def sendMessage(payload) {
-
+        log.info("Message received: [${payload.message}]")
         def template = rabbitConfiguration.rabbitTemplate()
         template.setMessageConverter(this.messageConverter())
 
-        def init = System.nanoTime()
-
         template.exchange = this.exchange
         template.convertAndSend(this.routingKey, payload)
-
-        def finish = System.nanoTime()
-        def time = (finish - init) / 1000000
-        log.info "Message sent $time ms"
 
         return 'Your solicitation is being processed, wait the response!'
     }

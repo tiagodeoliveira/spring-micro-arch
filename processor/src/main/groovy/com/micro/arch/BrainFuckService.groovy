@@ -1,27 +1,39 @@
 package com.micro.arch
 
+import groovy.util.logging.Log
 import org.springframework.stereotype.Component
 
+import java.util.logging.Level
+
+@Log
 @Component
 class BrainFuckService {
     def program = '', memory = [:]
     def instructionPointer = 0, dataPointer = 0
 
     def execute(program) {
+        log.info("BF Program start")
         def response = ''
-        this.program = program
-        while (instructionPointer < program.size()) {
-            switch (program[instructionPointer++]) {
-                case '>': dataPointer++; break;
-                case '<': dataPointer--; break;
-                case '+': memory[dataPointer] = memoryValue + 1; break;
-                case '-': memory[dataPointer] = memoryValue - 1; break;
-                case ',': memory[dataPointer] = System.in.read(); break;
-                case '.': response += ((char) memoryValue); break;
-                case '[': handleLoopStart(); break;
-                case ']': handleLoopEnd(); break;
+        try {
+            this.program = program
+            while (instructionPointer < program.size()) {
+                log.fine("Iterating [$instructionPointer]")
+                switch (program[instructionPointer++]) {
+                    case '>': dataPointer++; break;
+                    case '<': dataPointer--; break;
+                    case '+': memory[dataPointer] = memoryValue + 1; break;
+                    case '-': memory[dataPointer] = memoryValue - 1; break;
+                    case ',': memory[dataPointer] = System.in.read(); break;
+                    case '.': response += ((char) memoryValue); break;
+                    case '[': handleLoopStart(); break;
+                    case ']': handleLoopEnd(); break;
+                }
             }
+        } catch (Exception e) {
+            log.log(Level.SEVERE, 'Problem running.', e)
+            response = "Impossible to run program: [$program]"
         }
+        log.info("Done [$response]")
         return response
     }
 
@@ -51,4 +63,3 @@ class BrainFuckService {
         throw new IllegalStateException('Could not find matching start bracket')
     }
 }
-//new BrainfuckProgram(program: '++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.').execute()

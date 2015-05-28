@@ -1,0 +1,16 @@
+processor:
+  build: processor/
+  ports:
+  - "40083:40083"
+receiver:
+  build: receiver/
+  ports:
+  - "40080:40080"
+register:
+  build: register/
+  ports:
+  - "40082:40082"
+sender:
+  build: sender/
+  ports:
+  - "40081:40081"
