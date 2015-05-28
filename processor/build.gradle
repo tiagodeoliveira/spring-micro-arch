@@ -1,0 +1,7 @@
+group 'com.micro.arch'
+version '1.0-SNAPSHOT'
+
+dependencies {
+    compile "io.projectreactor:reactor-bus:2.0.2.RELEASE"
+    compile("org.projectreactor.spring:reactor-spring-context")
+}

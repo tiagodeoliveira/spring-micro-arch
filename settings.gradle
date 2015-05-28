@@ -1,0 +1,7 @@
+rootProject.name = 'spring-micro-arch'
+include 'sender'
+include 'receiver'
+include 'register'
+include 'processor'
+include 'provider'
+
