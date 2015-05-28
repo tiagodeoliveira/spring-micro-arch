@@ -1,9 +1,0 @@
-server.port: 40081
-routingKey: toDeliver
-spring.rabbitmq:
-  dynamic: true
-  host: rabbitmq-f67d3f5a.tiagodeoliveira.svc.tutum.io
-  port: 5672
-  username: admin
-  password: Ua2Zm5b2A6xT
-logging.level.org.springframework: INFO

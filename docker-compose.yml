@@ -1,0 +1,20 @@
+provider:
+  image: tiagodeoliveira/micro-arch-provider
+  ports:
+  - "40084:40084"
+processor:
+  image: tiagodeoliveira/micro-arch-processor
+  ports:
+  - "40083:40083"
+receiver:
+  image: tiagodeoliveira/micro-arch-receiver
+  ports:
+  - "40080:40080"
+register:
+  image: tiagodeoliveira/micro-arch-register
+  ports:
+  - "40082:40082"
+sender:
+  image: tiagodeoliveira/micro-arch-sender
+  ports:
+  - "40081:40081"

@@ -6,7 +6,6 @@ import org.springframework.cloud.config.server.EnableConfigServer
 
 @SpringBootApplication
 @EnableConfigServer
-@EnableHystrixDashboard
 class Provider {
     static main(args) {
         SpringApplication.run Provider, args
