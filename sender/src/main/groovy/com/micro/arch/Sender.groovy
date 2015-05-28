@@ -12,19 +12,22 @@ import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.cloud.netflix.hystrix.EnableHystrix
-import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard
 import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
 @Log
 @SpringBootApplication
 @ConfigurationProperties
 @EnableHystrix
-@EnableHystrixDashboard
 class Sender {
-    @Autowired ConnectionFactory cachingConnectionFactory
-    @Autowired SimpleRabbitListenerContainerFactory containerFactory
-    @Autowired SenderHTTP httpSender
+    @Autowired
+    ConnectionFactory cachingConnectionFactory
+    @Autowired
+    SimpleRabbitListenerContainerFactory containerFactory
+    @Autowired
+    SenderHTTP httpSender
+
     @Bean
     public MessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter()
@@ -43,7 +46,9 @@ class Sender {
 }
 
 @Log
+@Service
 class SenderHTTP {
+
     @HystrixCommand(fallbackMethod = 'sendHTTPFallback')
     def sendHTTPMessage(jsonMessage) {
         def url = jsonMessage.callback
