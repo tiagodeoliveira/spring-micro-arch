@@ -33,7 +33,10 @@ class Processor {
 
     def void sendMessage(payload) {
         rabbitTemplate.setMessageConverter(this.messageConverter)
-        rabbitTemplate.convertAndSend(this.routingKey, payload)
+        rabbitTemplate.routingKey = routingKey
+        rabbitTemplate.exchange = 'amq.direct'
+        log.info("Sending message to [${rabbitTemplate.exchange}] [$payload]")
+        rabbitTemplate.convertAndSend('toDeliver', payload)
     }
 
     def process(jsonMessage) {
